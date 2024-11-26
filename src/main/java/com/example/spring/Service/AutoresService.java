@@ -5,7 +5,7 @@
 package com.example.spring.Service;
 
 import com.example.spring.CustomException.CustomException;
-import com.example.spring.Dto.AutorespecificoDto;
+import com.example.spring.Dto.DtoAutorespecifico;
 import com.example.spring.Model.Autores;
 import com.example.spring.Repository.AutoresRepository;
 import java.util.List;
@@ -36,9 +36,9 @@ public class AutoresService {
     
     
     //aca mankjamos nuestro dto y tomamos un autor, lo guardamos en el modelo autores y luego vamos poniendo la informacion que nos traemos en nuestro dto
-    public AutorespecificoDto traerespecifico(String documento){
+    public DtoAutorespecifico traerespecifico(String documento){
         Autores autores = objautrep.traerautor(documento);
-        AutorespecificoDto dto = new AutorespecificoDto();
+        DtoAutorespecifico dto = new DtoAutorespecifico();
         dto.setDocumento(autores.getDocumento()); //aca por ejemplo pasamos el numero de documento de autores a el dto AutorespecificoDto
         dto.setNombre(autores.getNombre());
         dto.setBiografia(autores.getBiografia());

@@ -41,8 +41,6 @@ public class Libros implements Serializable {
     private Integer añoPublicacion;
     @Column(name = "genero")
     private String genero;
-    
-    
     @JoinColumn(name = "autor_id", referencedColumnName = "autor_id")
     @ManyToOne
     //recuerden que el json ignore lo usamos en donde esta la relacion muchos a muchos de una tabla y donde nos sale un gran cumulo de json de mala estructura

@@ -5,12 +5,11 @@
 package com.example.spring.Controller;
 
 import com.example.spring.CustomException.CustomException;
-import com.example.spring.Dto.AutorespecificoDto;
+import com.example.spring.Dto.DtoAutorespecifico;
 import com.example.spring.Model.Autores;
 import com.example.spring.Security.JwtBalancer;
 import com.example.spring.Service.AutoresService;
 import java.util.List;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +44,10 @@ public class AutoresController {
     JwtBalancer authbalan;
 
     //este es un metodo basico que lo que hace es traerse todos los autores de la bd
+    
+    
+    
+    
     @GetMapping("traerautores") //localhost:8081/autores/traerautores
     public ResponseEntity<?> traerautores(@RequestHeader(value = "Authorization", required = false) String Token) {
         try {
@@ -56,9 +59,29 @@ public class AutoresController {
                 throw new CustomException(HttpStatus.UNAUTHORIZED.value(), "Sin firmar");
             }
         } catch (CustomException ex) {
+            
             return ResponseEntity.status(ex.getStatus()).body(ex.toString());
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     //este es un metodo en donde por defecto mostramos todo lo que tiene nuestro modelo, las relaciones y los campos que este tiene en nuestra clase de java
     @GetMapping("autorpordoc/{documento}") //localhost:8081/autores/autorpordoc/1098632598
@@ -82,7 +105,7 @@ public class AutoresController {
         try {
             Boolean res = authbalan.authjwt(Token);
             if (res) {
-                AutorespecificoDto autorespe = objautserv.traerespecifico(documento);
+                DtoAutorespecifico autorespe = objautserv.traerespecifico(documento);
                 return ResponseEntity.ok(autorespe);
             } else {
                 throw new CustomException(HttpStatus.UNAUTHORIZED.value(), "Sin firmar");
@@ -139,7 +162,6 @@ public class AutoresController {
     //ejemplo, si quiero borrar a un autor que ya esta unido a un campo de la tabla libros, no me va a dejar por que primero tendria que eliminar ese libro y despues si al autor,tengan en cuenta eso, es como en mysql para eliminar
     @DeleteMapping("eliminarautor/{documento}") //localhost:8081/autores/eliminarautor/1098423
     public ResponseEntity<?> eliminarautor(@PathVariable("documento") String documento,@RequestHeader(value = "Authorization", required = false) String Token) {
-        
         try {
             Boolean res = authbalan.authjwt(Token);
             if (res) {
