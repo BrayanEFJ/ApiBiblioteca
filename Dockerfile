@@ -19,7 +19,8 @@ ENV MYSQL_ROOT_PASSWORD=1234
 ENV MYSQL_DATABASE=biblioteca
 
 # Copiar los scripts SQL al contenedor de MySQL
-COPY db/initsql /docker-entrypoint-initdb.d
+COPY db/init.sql /docker-entrypoint-initdb.d/
+
 
 # Exponer puertos para MySQL y la API
 EXPOSE 3306 8081
