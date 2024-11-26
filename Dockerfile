@@ -2,7 +2,7 @@
 FROM mysql:8.0 as db
 
 # Establecer las variables de entorno de MySQL
-ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_ROOT_PASSWORD=1234
 ENV MYSQL_DATABASE=biblioteca
 
 # Copiar el archivo init.sql que creará la estructura de la base de datos
