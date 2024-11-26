@@ -1,8 +1,3 @@
-
-# Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-# Click nbfs://nbhost/SystemFileSystem/Templates/Other/Dockerfile to edit this template
-
-# Base de Java
 # Etapa 1: Crear la base de datos (MySQL)
 FROM mysql:8.0 as db
 
@@ -28,11 +23,11 @@ COPY target/spring-0.0.1-SNAPSHOT.jar app.jar
 # Exponer el puerto de la API
 EXPOSE 8081
 
-# Etapa 3: Configuración para iniciar ambos servicios (MySQL y la API)
+# Etapa 3: Configuración para iniciar ambos servicios (MySQL y la API) usando supervisord
 FROM openjdk:17-alpine
 
-# Instalar MySQL y herramientas necesarias para correr ambos procesos
-RUN apk update && apk add mysql mysql-client bash
+# Instalar MySQL, supervisord y bash
+RUN apk update && apk add mysql mysql-client bash supervisor
 
 # Copiar el script de inicio de la base de datos desde la etapa 'db'
 COPY --from=db /docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
@@ -40,5 +35,11 @@ COPY --from=db /docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
 # Copiar el archivo JAR de la aplicación desde la etapa 'build'
 COPY --from=build /app/app.jar /app/app.jar
 
-# Comando para ejecutar ambos procesos (MySQL y la API)
-CMD /etc/init.d/mysqld start && java -jar /app/app.jar
+# Copiar el archivo de configuración de supervisord
+COPY supervisord.conf /etc/supervisord.conf
+
+# Exponer los puertos necesarios
+EXPOSE 3306 8081
+
+# Comando para iniciar supervisord
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
