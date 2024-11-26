@@ -9,7 +9,7 @@ FROM amazoncorretto:17-alpine-jdk as build
 WORKDIR /app
 
 # Copiar el archivo JAR generado en el contenedor
-COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
+COPY target/spring-0.0.1-SNAPSHOT.jar app.jar
 
 # Usar MySQL para la base de datos
 FROM mysql:8.0 as db
