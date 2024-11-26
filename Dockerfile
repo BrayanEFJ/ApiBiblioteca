@@ -29,14 +29,14 @@ FROM openjdk:17-alpine
 # Instalar MySQL, supervisord y bash
 RUN apk update && apk add mysql mysql-client bash supervisor
 
-# Copiar el script de inicio de la base de datos desde la etapa 'db'
-COPY --from=db /docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
-
 # Copiar el archivo JAR de la aplicación desde la etapa 'build'
 COPY --from=build /app/app.jar /app/app.jar
 
 # Copiar el archivo de configuración de supervisord
 COPY supervisord.conf /etc/supervisord.conf
+
+# Copiar el script de inicialización de la base de datos desde la etapa 'db'
+COPY --from=db /docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
 
 # Exponer los puertos necesarios
 EXPOSE 3306 8081
