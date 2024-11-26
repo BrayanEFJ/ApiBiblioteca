@@ -9,7 +9,7 @@ ENV MYSQL_DATABASE=biblioteca
 COPY db/init.sql /docker-entrypoint-initdb.d/
 
 # Exponer el puerto de MySQL
-EXPOSE 3306
+EXPOSE 3308
 
 # Etapa 2: Construir la aplicación Spring Boot
 FROM amazoncorretto:17-alpine-jdk as build
