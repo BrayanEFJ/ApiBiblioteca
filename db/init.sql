@@ -52,4 +52,3 @@ CREATE TABLE IF NOT EXISTS libros (
 INSERT INTO libros (libro_id, titulo, autor_id, editorial_id, año_publicacion, genero) VALUES
   (1, 'Cien años de soledad', 1, 1, 1967, 'Realismo mágico'),
   (2, 'Harry Potter y la piedra filosofal', 2, 2, 1997, 'Fantasía');
-
